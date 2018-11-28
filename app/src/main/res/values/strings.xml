@@ -1,3 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">RetroWebSocket</string>
+
+    <string name="send">Send</string>
+    <string name="connect">Connect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="hint_location">Location</string>
+    <string name="hint_message">Message</string>
+    <string name="hint_empty_message">Please input message</string>
+    <string name="hint_send_fail">Send failed</string>
+
+    <string name="template_send">[SENT] %s</string>
+    <string name="template_receive">[RECEIVED] %s</string>
+    <string name="template_connect">[CONNECTED]</string>
+    <string name="template_disconnect">[DISCONNECTED]</string>
+    <string name="template_connection_lost">[CONNECTION_LOST]</string>
+    <string name="template_reconnect">[RECONNECTED]</string>
 </resources>

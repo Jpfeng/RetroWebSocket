@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="itemTime"
+            type="String" />
+
+        <variable
+            name="itemContent"
+            type="String" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/page_margin_default"
+        android:paddingTop="@dimen/page_margin_small"
+        android:paddingEnd="@dimen/page_margin_default"
+        android:paddingBottom="@dimen/page_margin_small">
+
+        <TextView
+            android:id="@+id/tv_message_item_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{itemTime}" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/page_margin_tiny"
+            android:background="@color/colorBackground"
+            android:padding="@dimen/page_margin_small"
+            app:cardCornerRadius="@dimen/radius_item_message_background"
+            app:cardElevation="@dimen/elevation_message"
+            app:contentPadding="@dimen/page_margin_default">
+
+            <TextView
+                android:id="@+id/tv_message_item_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{itemContent}" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</layout>

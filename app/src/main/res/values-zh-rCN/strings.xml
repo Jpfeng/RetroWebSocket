@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RetroWebSocket</string>
+
+    <string name="send">发送</string>
+    <string name="connect">连接</string>
+    <string name="disconnect">断开</string>
+    <string name="hint_location">WebSocket地址</string>
+    <string name="hint_message">消息内容</string>
+    <string name="hint_empty_message">请输入消息内容</string>
+    <string name="hint_send_fail">发送失败</string>
+
+    <string name="template_send">[发送] %s</string>
+    <string name="template_receive">[接收] %s</string>
+    <string name="template_connect">[已连接]</string>
+    <string name="template_disconnect">[已断开]</string>
+    <string name="template_connection_lost">[连接丢失]</string>
+    <string name="template_reconnect">[重新连接]</string>
+</resources>

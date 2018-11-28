@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="page_margin_default">16dp</dimen>
+    <dimen name="page_margin_small">8dp</dimen>
+    <dimen name="page_margin_tiny">4dp</dimen>
+
+    <dimen name="elevation_control_panel">4dp</dimen>
+    <dimen name="elevation_message">2dp</dimen>
+
+    <dimen name="radius_item_message_background">2dp</dimen>
+
+    <dimen name="height_keyboard_different">96dp</dimen>
+</resources>
