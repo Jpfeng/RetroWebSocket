@@ -50,18 +50,16 @@ class WebSocketClient {
             @Override
             public void onMessage(WebSocket webSocket, ByteString bytes) {
                 super.onMessage(webSocket, bytes);
-                WebSocketMessage message = new WebSocketMessage();
-                message.type = Message.Type.Binary;
-                message.binary = bytes;
+                WebSocketMessage message = new WebSocketMessage(Message.Type.Binary);
+                message.mBinary = bytes;
                 mHost.launchMessage(message);
             }
 
             @Override
             public void onMessage(WebSocket webSocket, String text) {
                 super.onMessage(webSocket, text);
-                WebSocketMessage message = new WebSocketMessage();
-                message.type = Message.Type.Text;
-                message.text = text;
+                WebSocketMessage message = new WebSocketMessage(Message.Type.Text);
+                message.mText = text;
                 mHost.launchMessage(message);
             }
 

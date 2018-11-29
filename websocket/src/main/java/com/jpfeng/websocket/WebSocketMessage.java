@@ -9,24 +9,28 @@ import okio.ByteString;
  * E-mail: fengjup@live.com
  * Date: 2018/11/28
  */
-public class WebSocketMessage implements Message, Serializable {
+class WebSocketMessage implements Message, Serializable {
 
-    Type type;
-    String text;
-    ByteString binary;
+    String mText;
+    ByteString mBinary;
+    private final Type mType;
+
+    WebSocketMessage(Type type) {
+        mType = type;
+    }
 
     @Override
     public Type type() {
-        return type;
+        return mType;
     }
 
     @Override
     public String text() {
-        return text;
+        return mText;
     }
 
     @Override
     public ByteString binary() {
-        return binary;
+        return mBinary;
     }
 }
