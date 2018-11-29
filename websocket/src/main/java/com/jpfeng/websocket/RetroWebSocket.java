@@ -158,12 +158,12 @@ public final class RetroWebSocket {
             }
         }
 
-        StringBuilder builder = new StringBuilder("Could not locate call adapter for ")
+        StringBuilder builder = new StringBuilder("Could not locate message launcher for ")
                 .append(returnType)
                 .append(".\n");
         builder.append("\tTried:");
         for (MessageLauncher.Factory factory : mLauncherFactories) {
-            builder.append("\n\t* ").append(factory.getClass().getName());
+            builder.append("\n\t * ").append(factory.getClass().getName());
         }
         throw new IllegalArgumentException(builder.toString());
     }
