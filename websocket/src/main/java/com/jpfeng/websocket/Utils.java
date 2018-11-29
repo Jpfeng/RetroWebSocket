@@ -67,4 +67,17 @@ class Utils {
         throw new IllegalArgumentException("Expected a Class, ParameterizedType, or "
                 + "GenericArrayType, but <" + type + "> is of type " + type.getClass().getName());
     }
+
+    static Type getParameterUpperBound(int index, ParameterizedType type) {
+        Type[] types = type.getActualTypeArguments();
+        if (index < 0 || index >= types.length) {
+            throw new IllegalArgumentException(
+                    "Index " + index + " not in range [0," + types.length + ") for " + type);
+        }
+        Type paramType = types[index];
+        if (paramType instanceof WildcardType) {
+            return ((WildcardType) paramType).getUpperBounds()[0];
+        }
+        return paramType;
+    }
 }

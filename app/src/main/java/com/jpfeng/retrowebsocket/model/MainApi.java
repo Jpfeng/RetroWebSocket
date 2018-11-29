@@ -1,7 +1,10 @@
 package com.jpfeng.retrowebsocket.model;
 
+import com.jpfeng.websocket.Message;
 import com.jpfeng.websocket.Messenger;
 import com.jpfeng.websocket.annotation.Listen;
+
+import io.reactivex.Flowable;
 
 /**
  * @author Jpfeng
@@ -11,4 +14,7 @@ import com.jpfeng.websocket.annotation.Listen;
 interface MainApi {
     @Listen
     Messenger listen();
+
+    @Listen
+    Flowable<Message> listenRx();
 }

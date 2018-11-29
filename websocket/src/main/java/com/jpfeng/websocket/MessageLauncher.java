@@ -1,5 +1,6 @@
 package com.jpfeng.websocket;
 
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /**
@@ -14,5 +15,13 @@ public interface MessageLauncher<R> {
 
     abstract class Factory {
         public abstract MessageLauncher<?> get(Type returnType, LaunchPad launchPad);
+
+        protected static Class<?> getRawType(Type type) {
+            return Utils.getRawType(type);
+        }
+
+        protected static Type getParameterUpperBound(int index, ParameterizedType type) {
+            return Utils.getParameterUpperBound(index, type);
+        }
     }
 }

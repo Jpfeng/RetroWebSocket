@@ -1,7 +1,10 @@
 package com.jpfeng.retrowebsocket.model;
 
+import com.jpfeng.websocket.Message;
 import com.jpfeng.websocket.Messenger;
 import com.jpfeng.websocket.RetroWebSocket;
+
+import io.reactivex.Flowable;
 
 /**
  * @author Jpfeng
@@ -18,5 +21,9 @@ public class MainModel {
 
     public Messenger getMessenger() {
         return mApi.listen();
+    }
+
+    public Flowable<Message> getRxObservable() {
+        return mApi.listenRx();
     }
 }

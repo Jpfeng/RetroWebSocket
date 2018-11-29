@@ -7,8 +7,9 @@ import com.jpfeng.retrowebsocket.Record.RecordType;
 import com.jpfeng.retrowebsocket.databinding.ActivityMainBinding;
 import com.jpfeng.retrowebsocket.model.MainModel;
 import com.jpfeng.websocket.ConnectionListener;
-import com.jpfeng.websocket.Messenger;
+import com.jpfeng.websocket.Message;
 import com.jpfeng.websocket.RetroWebSocket;
+import com.jpfeng.websocket.launcher.RxJava2LauncherFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +21,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.subscribers.ResourceSubscriber;
 import okhttp3.Response;
 
 /**
@@ -41,6 +45,7 @@ public class MainViewModel extends AndroidViewModel {
     private final MutableLiveData<List<Record>> mData = new MutableLiveData<>();
 
     private RetroWebSocket mWebSocket;
+    private ResourceSubscriber<Message> mSubscriber;
     private final SimpleDateFormat mDateFormat;
 
     public MainViewModel(@NonNull Application application) {
@@ -110,11 +115,29 @@ public class MainViewModel extends AndroidViewModel {
             mConnecting.setValue(true);
             mWebSocket = new RetroWebSocket.Builder()
                     .url(mAddress.getValue())
+                    .addLauncherFactory(RxJava2LauncherFactory.create())
                     .build();
 
-            Messenger messenger = new MainModel(mWebSocket).getMessenger();
-            messenger.registerReceiver(message
-                    -> addMessage(generateRecord(message.text(), Record.TYPE_MESSAGE_RECEIVE)));
+//            Messenger messenger = new MainModel(mWebSocket).getMessenger();
+//            messenger.registerReceiver(message
+//                    -> addMessage(generateRecord(message.text(), Record.TYPE_MESSAGE_RECEIVE)));
+
+            Flowable<Message> rxObservable = new MainModel(mWebSocket).getRxObservable();
+            mSubscriber = rxObservable.observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(new ResourceSubscriber<Message>() {
+                        @Override
+                        public void onNext(Message message) {
+                            addMessage(generateRecord(message.text(), Record.TYPE_MESSAGE_RECEIVE));
+                        }
+
+                        @Override
+                        public void onError(Throwable t) {
+                        }
+
+                        @Override
+                        public void onComplete() {
+                        }
+                    });
 
             mWebSocket.addConnectionListener(new ConnectionListener() {
                 @Override
@@ -174,6 +197,9 @@ public class MainViewModel extends AndroidViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
+        if (null != mSubscriber) {
+            mSubscriber.dispose();
+        }
     }
 
     private Record generateRecord(String rawMessage, @RecordType int type) {
