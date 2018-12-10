@@ -72,6 +72,8 @@ public final class RetroWebSocket {
 
     @SuppressWarnings("unchecked")
     public <T> T create(final Class<T> service, final Retrofit retrofit) {
+        Utils.checkNotNull(retrofit, "retrofit required");
+        final T retrofitService = retrofit.create(service);
         return (T) Proxy.newProxyInstance(service.getClassLoader(), new Class<?>[]{service},
                 new InvocationHandler() {
                     @Override
@@ -84,8 +86,7 @@ public final class RetroWebSocket {
                         if (method.isAnnotationPresent(Listen.class)) {
                             return loadMessageLauncher(method).prepare();
                         } else {
-                            Utils.checkNotNull(retrofit, "retrofit required");
-                            return retrofit.create(service);
+                            return method.invoke(retrofitService, args);
                         }
                     }
                 });
